@@ -2,6 +2,7 @@
 
 #include <hive/utils/functor.h>
 #include <hive/utils/singleton.h>
+#include <hive/core/assert.h>
 
 #include <array>
 #include <string>
@@ -55,7 +56,7 @@ namespace hive
         template<typename T>
         [[nodiscard]] LoggerId RegisterLogger(T *obj, void (T::*method)(const LogCategory &, LogSeverity, const char *))
         {
-            // HIVE_ASSERT(m_Count + 1 < m_Loggers.size())
+            HIVE_ASSERT(m_Count + 1 < m_Loggers.size());
             m_Loggers[m_Count++] = {m_Count, LogCallback{obj, method}};
             return ++m_IdCount;
         }
@@ -82,7 +83,7 @@ namespace hive
 
     inline void LogGeneral(const LogCategory &cat, LogSeverity sev, const char *msg)
     {
-        // HIVE_ASSERT(LogManager::IsInitialized())
+        HIVE_ASSERT(LogManager::IsInitialized());
         LogManager::GetInstance().Log(cat, sev, msg);
     }
 

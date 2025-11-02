@@ -1,5 +1,6 @@
 #include <hive/precomp.h>
 #include <hive/core/log.h>
+#include <hive/core/assert.h>
 
 #include <iostream>
 namespace hive
@@ -55,7 +56,7 @@ namespace hive
 
         // Print severity label
         auto it = severityLabels.find(severity);
-        // HIVE_ASSERT(it != severityLabels.end());
+        HIVE_ASSERT(it != severityLabels.end());
 
         std::cout << it->second;
 
