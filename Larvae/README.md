@@ -140,24 +140,24 @@ Larvae/
     ├── assertions.cpp
     └── larvae.cpp
 
-tests/
+Brood/
 ├── main.cpp               # Entry point
-├── comb/
-│   └── test_allocator.cpp # Tests for Comb module
+├── memory/
+│   └── test_allocator.cpp # Tests for Hive memory
 └── CMakeLists.txt
 ```
 
 ## Adding Tests for a Module
 
-1. Create a file in `tests/module_name/`
+1. Create a file in `Brood/module_name/`
 2. Include `<larvae/larvae.h>`
 3. Use `RegisterTest()` or `RegisterTestWithFixture<>()`
-4. Add the file to `tests/CMakeLists.txt`
+4. Add the file to `Brood/CMakeLists.txt`
 
 Example:
 
 ```cpp
-// tests/mymodule/test_myclass.cpp
+// Brood/mymodule/test_myclass.cpp
 #include <larvae/larvae.h>
 #include <mymodule/myclass.h>
 

@@ -9,5 +9,7 @@ set(terra_use_glfw ON)
 
 add_subdirectory(Hive)
 #add_subdirectory(Swarm)
+add_subdirectory(Larvae)
 add_subdirectory(Terra)
-add_subdirectory(Testbed)
+#add_subdirectory(Testbed)
+add_subdirectory(Brood)
