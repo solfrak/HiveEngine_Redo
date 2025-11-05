@@ -56,6 +56,7 @@
 #endif
 
 #include <source_location>
+#include <type_traits>
 
 namespace hive
 {
@@ -66,50 +67,62 @@ namespace hive
         const char* message = nullptr);
 
     // Assert: Debug only, zero cost in release, expr not evaluated in release
+    // NOTE: Currently only checks at runtime. In C++26, we could add compile-time
+    // validation using consteval diagnostics for better error messages when used
+    // in constexpr contexts.
 #if HIVE_BUILD_DEBUG
-    inline void Assert(
+    constexpr void Assert(
         bool expr,
         const char* message = nullptr,
         const std::source_location& loc = std::source_location::current())
     {
-        if (HIVE_UNLIKELY(!expr))
+        if (!std::is_constant_evaluated())
         {
-            HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            if (HIVE_UNLIKELY(!expr))
+            {
+                HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            }
         }
     }
 #else
-    inline void Assert(bool, const char* = nullptr, const std::source_location& = std::source_location::current()) {}
+    constexpr void Assert(bool, const char* = nullptr, const std::source_location& = std::source_location::current()) {}
 #endif
 
     // Verify: Always evaluates expr (even in release), reports failure in debug only
 #if HIVE_BUILD_DEBUG
-    inline bool Verify(
+    constexpr bool Verify(
         bool expr,
         const char* message = nullptr,
         const std::source_location& loc = std::source_location::current())
     {
-        if (HIVE_UNLIKELY(!expr))
+        if (!std::is_constant_evaluated())
         {
-            HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            if (HIVE_UNLIKELY(!expr))
+            {
+                HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            }
         }
         return expr;
     }
 #else
-    inline bool Verify(bool expr, const char* = nullptr, const std::source_location& = std::source_location::current())
+    constexpr bool Verify(bool expr, const char* = nullptr, const std::source_location& = std::source_location::current())
     {
         return expr;
     }
 #endif
 
     // Check: Always evaluates and reports, even in release (use sparingly)
-    inline void Check(
+    constexpr void Check(
         bool expr,
         const char* message = nullptr,
         const std::source_location& loc = std::source_location::current())
     {
-        if (HIVE_UNLIKELY(!expr))
+        if (!std::is_constant_evaluated())
         {
-            HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            if (HIVE_UNLIKELY(!expr))
+            {
+                HandleAssertionFailure(loc.file_name(), loc.line(), loc.function_name(), message);
+            }
         }
     }
 
