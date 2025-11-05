@@ -8,5 +8,6 @@ target_sources(hive PRIVATE
     src/hive/core/log.cpp
     src/hive/core/module.cpp
     src/hive/core/moduleregistry.cpp
+    src/hive/core/memory/platform.cpp
 )
 

@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.30.5)
 add_executable(larvae_runner
     main.cpp
     memory/test_allocator.cpp
+    memory/test_platform.cpp
 )
 
 # Link against Larvae testing framework and modules to test
