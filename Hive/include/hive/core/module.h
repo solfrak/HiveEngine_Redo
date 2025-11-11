@@ -34,7 +34,7 @@ namespace hive
         bool IsInitialized() const { return m_IsInitialized; }
 
     protected:
-        virtual void DoConfigure(ModuleContext &context)
+        virtual void DoConfigure([[maybe_unused]] ModuleContext &context)
         {
         }
 

@@ -20,7 +20,7 @@ namespace hive
 
     bool Module::CanInitialize(const std::unordered_set<std::string> &initModulesNames) const
     {
-        int depCount {0};
+        size_t depCount {0};
         for (auto depName : m_Context.GetDependencies())
         {
             if (initModulesNames.find(depName) != initModulesNames.end())
